@@ -93,17 +93,19 @@ public class AccountServiceTest {
 	@Rollback
 	public void testMerge() {
 		accountService.persist(account);
-		Account renamedAccount = accountService.find(3l);
+		long id = account.getId();
+		Account renamedAccount = accountService.find(id);
 		renamedAccount.setName("New Name");
 		accountService.merge(renamedAccount);
-		assertEquals("New Name", accountService.find(3l).getName());
+		assertEquals("New Name", accountService.find(id).getName());
 	}
 
 	@Test
 	@Rollback
 	public void testRemove() {
 		accountService.persist(account);
-		accountService.remove(accountService.find(4l));
+		long id = account.getId();
+		accountService.remove(accountService.find(id));
 		assertEquals(0, accountService.findAll().size());
 	}
 
@@ -111,7 +113,8 @@ public class AccountServiceTest {
 	@Rollback
 	public void testFind() {
 		accountService.persist(account);
-		assertNotNull(accountService.find(5l));
+		long id = account.getId();
+		assertNotNull(accountService.find(id));
 	}
 	
 	
@@ -119,7 +122,8 @@ public class AccountServiceTest {
   @Rollback
   public void testArray() {
     accountService.persist(account);
-    Account renamedAccount = accountService.find(6l);
+    long id = account.getId();
+    Account renamedAccount = accountService.find(id);
     renamedAccount.setName("TestArray");
     assertEquals(2,renamedAccount.getInvestments().size());
     
@@ -129,7 +133,7 @@ public class AccountServiceTest {
     renamedAccount.addInvestment(inv);
     
     accountService.merge(renamedAccount);
-    assertEquals("TestArray", accountService.find(6l).getName());
+    assertEquals("TestArray", accountService.find(id).getName());
     assertEquals(3,renamedAccount.getInvestments().size());
     
   }

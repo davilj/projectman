@@ -64,10 +64,13 @@ public class PersonServiceTest {
 	@Test
 	@Rollback
 	public void testDelete() {
+	  long amount = personService.findAll().size();
+	  
 		Person homer = DataSeeder.generatePerson();
 		personService.persist(homer);
+		assertEquals((amount+1L), personService.findAll().size());
 		personService.remove(homer);
-		assertEquals(1l, personService.findAll().size());
+		assertEquals(amount, personService.findAll().size());
 	}
 
 	@Test
