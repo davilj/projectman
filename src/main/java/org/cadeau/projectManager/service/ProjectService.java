@@ -13,6 +13,7 @@ public interface ProjectService {
 
   List<Project> findMyProjects(Person person);
   
+  @Transactional
   void addComment(Project project, Comment comment) ;
 
   @Transactional

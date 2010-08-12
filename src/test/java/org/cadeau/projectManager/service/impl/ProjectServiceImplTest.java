@@ -1,9 +1,5 @@
 package org.cadeau.projectManager.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import junit.framework.Assert;
 
 import org.cadeau.projectManager.domain.Comment;
@@ -41,7 +37,9 @@ public class ProjectServiceImplTest {
     projectService.addComment(project, comment2);
     Assert.assertEquals(2, project.getComments().size());
     
-    Project projectOne = projectService.find(1L);
+    long id = project.getId();
+    
+    Project projectOne = projectService.find(id);
     Assert.assertEquals("TestProject", projectOne.getName());
     Assert.assertEquals(2, projectOne.getComments().size());
     

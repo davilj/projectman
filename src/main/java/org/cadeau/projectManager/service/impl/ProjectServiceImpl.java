@@ -39,9 +39,9 @@ public class ProjectServiceImpl extends GenericDAOWithJPA<Project, Long> impleme
     System.err.println("Comment: " + comment);
     
     //load project
-    Project tmp = this.find(project.getId());
+   //Project tmp = this.find(project.getId());
     System.err.println("Loaded");
-    System.err.println("Project: " + tmp);
+    //System.err.println("Project: " + tmp);
     
     commentService.persist(comment);
     Set<Comment> newComments = project.getComments();
