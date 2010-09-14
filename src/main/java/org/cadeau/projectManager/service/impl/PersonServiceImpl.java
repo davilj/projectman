@@ -2,19 +2,11 @@ package org.cadeau.projectManager.service.impl;
 
 import java.util.List;
 
-
-import javax.persistence.EntityTransaction;
-
-
 import org.cadeau.projectManager.dao.GenericDAOWithJPA;
-import org.cadeau.projectManager.domain.Address;
 import org.cadeau.projectManager.domain.Person;
-import org.cadeau.projectManager.security.Authorities;
 import org.cadeau.projectManager.service.PersonService;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This is a service layer implementation for {@link PersonService}. Note that
@@ -40,4 +32,16 @@ public class PersonServiceImpl extends GenericDAOWithJPA<Person, Long> implement
 	public List<Person> findByLastName(String lastName) {
 		return super.entityManager.createQuery("Select p from Person p where p.lastName = :lastName").setParameter("lastName", lastName).getResultList();
 	}
+
+  @Override
+  public Person findByEmail(String email) {
+    List<Person> listOfPerson = super.entityManager.createQuery("Select p from Person p where p.email = :email").setParameter("email", email).getResultList();
+    if (listOfPerson.size()!=1) {
+      System.err.println(listOfPerson.size() + " result for " + email);
+      for (Person person : listOfPerson) {
+        System.err.println(person);
+      }
+    }
+    return listOfPerson.size()==0?Person.emptyPerson:listOfPerson.get(0);
+  }
 }

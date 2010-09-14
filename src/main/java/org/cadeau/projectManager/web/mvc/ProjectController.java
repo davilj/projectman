@@ -1,15 +1,19 @@
 package org.cadeau.projectManager.web.mvc;
 
+import java.security.Principal;
+
 import javax.validation.Validation;
 import javax.validation.Validator;
 
 import org.cadeau.projectManager.domain.Comment;
+import org.cadeau.projectManager.domain.Person;
 import org.cadeau.projectManager.domain.Project;
 import org.cadeau.projectManager.service.PersonService;
 import org.cadeau.projectManager.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -37,12 +41,9 @@ public class ProjectController {
 	@RequestMapping(value = "/project", method = RequestMethod.GET)
 	public String list(ModelMap modelMap) {
 	  
-	  Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	  String username = principal.toString();
-	  System.err.println("username: " + username);
-	  
-	  
-		modelMap.addAttribute("projects", projectService.findAll());
+	  User principal = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	  Person person = personService.findByEmail(principal.getUsername());
+	  modelMap.addAttribute("projects", projectService.findMyProjects(person));
 		return "project/list";
 	}
 

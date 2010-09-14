@@ -46,4 +46,6 @@ public interface PersonService {
 	void remove(Person entity);
 
 	Person find(Long id);
+
+  Person findByEmail(String username);
 }

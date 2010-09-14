@@ -26,7 +26,15 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @Entity
 public class Person implements Serializable {
 	
-	@Id
+	public static Person emptyPerson;
+	static {
+	  Person person = new Person();
+	  person.setFirstName("Empty");
+	  person.setLastName("Person");
+	  person.setId(-1L);
+	}
+
+  @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
