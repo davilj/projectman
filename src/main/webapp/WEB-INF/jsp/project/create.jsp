@@ -18,6 +18,10 @@
             <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : "description", widgetType: "dijit.form.Textarea", widgetAttrs: {value: ""}})); </script>
             <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : "description", widgetType : "dijit.form.ValidationTextBox", widgetAttrs : {promptMessage: "Enter Description", required : false}})); </script>
 		</div>
+		<div>
+            <label for="owner">Owner:</label>
+            <form:select path="owner" items="${owners}" itemLabel="displayName" itemValue="id" />
+        </div>
         
 		
 		<div class="submit">

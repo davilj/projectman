@@ -1,5 +1,6 @@
 package org.cadeau.projectManager.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.cadeau.projectManager.dao.GenericDAOWithJPA;
@@ -36,8 +37,9 @@ public class PersonServiceImpl extends GenericDAOWithJPA<Person, Long> implement
   @Override
   public Person findByEmail(String email) {
     List<Person> listOfPerson = super.entityManager.createQuery("Select p from Person p where p.email = :email").setParameter("email", email).getResultList();
+    System.err.println(listOfPerson.size() + " result for " + email + " at " + new Date());
     if (listOfPerson.size()!=1) {
-      System.err.println(listOfPerson.size() + " result for " + email);
+      
       for (Person person : listOfPerson) {
         System.err.println(person);
       }

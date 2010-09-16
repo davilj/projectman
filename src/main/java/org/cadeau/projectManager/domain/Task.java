@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
@@ -26,7 +24,7 @@ import javax.validation.constraints.Size;
 import org.cadeau.projectManager.utils.Util;
 
 @Entity
-public class Project implements Serializable {
+public class Task implements Serializable {
  
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,40 +42,17 @@ public class Project implements Serializable {
 
   private String description;
   
-  //can not delete a project, just active or inactive - deleted is inactive
-  private boolean active=false;
-  //date project was deleted (made inactive)
-  private Date deactivationDate;
+  private State state;
+  
+  private Person owner;
+  
+  
+  
+  
   
   @OneToMany(cascade = CascadeType.ALL)
   private Set<Comment> comments = new HashSet<Comment>();
   
-  @NotNull
-  @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-  @JoinColumn
-  Person owner;
-  
-  @OneToMany(cascade = CascadeType.ALL)
-  private Set<Person> resources = new HashSet<Person>();
-  
-  
-  
-  public Person getOwner() {
-    return owner;
-  }
-
-  public void setOwner(Person owner) {
-    this.owner = owner;
-  }
-
-  public Set<Person> getResources() {
-    return resources;
-  }
-
-  public void setResources(Set<Person> resources) {
-    this.resources = resources;
-  }
-
   public Set<Comment> getComments() {
     return comments;
   }
@@ -119,23 +94,6 @@ public class Project implements Serializable {
   }
   
   
-
-  public boolean isActive() {
-    return active;
-  }
-
-  public void setActive(boolean active) {
-    this.active = active;
-  }
-
-  public Date getDeactivationDate() {
-    return deactivationDate;
-  }
-
-  public void setDeactivationDate(Date deactivationDate) {
-    this.deactivationDate = deactivationDate;
-  }
-
   @Override
   public String toString() {
     Map<String, Object > info = new HashMap<String, Object>();

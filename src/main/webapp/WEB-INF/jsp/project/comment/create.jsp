@@ -5,7 +5,7 @@
 <div dojoType="dijit.TitlePane" style="width: 100%" title="Add a comment to a Project">
 	${project.id}, ${fn:substring(project.name, 0, 10)}, ${fn:substring(project.description, 0, 10)}
 
-    <form:form action="/ProjectManager/project/comment" method="POST" modelAttribute="comment
+    <form:form action="/ProjectManager/project/comment" method="POST" modelAttribute="comment" >
             <label for="description">Description:</label>
             <form:textarea cssStyle="width:250px;height:15em" path="description"/>
             <form:errors path="description" cssClass="errors"/>

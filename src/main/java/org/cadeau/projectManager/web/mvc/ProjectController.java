@@ -1,15 +1,19 @@
 package org.cadeau.projectManager.web.mvc;
 
 import java.security.Principal;
+import java.util.Set;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
+
 
 import org.cadeau.projectManager.domain.Comment;
 import org.cadeau.projectManager.domain.Person;
 import org.cadeau.projectManager.domain.Project;
 import org.cadeau.projectManager.service.PersonService;
 import org.cadeau.projectManager.service.ProjectService;
+import org.cadeau.projectManager.web.mvc.properties.OwnerEditor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -69,6 +73,8 @@ public class ProjectController {
 	@RequestMapping(value = "/project/form", method = RequestMethod.GET)
   public String form(ModelMap modelMap) {
     modelMap.addAttribute("project", new Project());
+    //find all the possible owners
+    modelMap.addAttribute("owners", personService.findAll());
     return "project/create";
   }
 	
@@ -93,6 +99,8 @@ public class ProjectController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {
-		
+	  OwnerEditor ownerEditor = new OwnerEditor();
+    ownerEditor.setPersonService(personService);
+    binder.registerCustomEditor(Person.class, ownerEditor);
 	}
 }

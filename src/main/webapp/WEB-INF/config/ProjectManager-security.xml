@@ -26,13 +26,13 @@
 
     
 	
-	<!-- These beans are only created to pre-populate an admin user -->
+	<!-- These beans are only created to pre-populate an admin user 
 	<beans:bean id="adminUser" class="org.cadeau.projectManager.domain.Person">
 		<beans:property name="firstName" value="Super" />
-		<beans:property name="lastName" value="Admin" />		
-		<!-- this is the login email for the admin user -->
-		<beans:property name="email" value="super@admin.com" />
-		<!-- and this is the password -->
+		<beans:property name="lastName" value="Admin" /> 	--> 	
+		<!-- this is the login email for the admin user 
+		<beans:property name="email" value="super@admin.com" /> -->
+		<!-- and this is the password 
 		<beans:property name="password" value="admin" />
 		<beans:property name="address">
 			<beans:bean class="org.cadeau.projectManager.domain.Address">
@@ -41,11 +41,16 @@
 				<beans:property name="city" value="SpringField" />
 			</beans:bean>
 		</beans:property>
-	</beans:bean>
+	</beans:bean>--> 
 	
+	
+	<!-- 
 	<beans:bean id="adminAuthority" class="org.cadeau.projectManager.security.Authorities">
 		<beans:property name="authority" value="ROLE_ADMIN" />
 		<beans:property name="username" value="super@admin.com" />
 	</beans:bean>
+	 -->
+	
+	
 	
 </beans:beans>

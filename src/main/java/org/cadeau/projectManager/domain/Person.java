@@ -26,7 +26,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @Entity
 public class Person implements Serializable {
 	
-	public static Person emptyPerson;
+	private static final int MAX_DISPLAY_LEN = 20;
+
+  public static Person emptyPerson;
 	static {
 	  Person person = new Person();
 	  person.setFirstName("Empty");
@@ -63,6 +65,8 @@ public class Person implements Serializable {
 	@NotNull
 	@Embedded
 	private Address address;
+	
+	private String displayName;
 
 	public Person() {
 		address = new Address();
@@ -123,8 +127,28 @@ public class Person implements Serializable {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
+	public String getDisplayName() {
+	    if (displayName==null) {
+	      this.displayName=createDisplayName(this.firstName, this.lastName);
+	    }
+	    return this.displayName;
+	}
 
-	public String toString() {
+	protected String createDisplayName(String firstName, String lastName) {
+    if (this.firstName.length() + this.lastName.length()+2>MAX_DISPLAY_LEN) {
+      String tmp = this.firstName.substring(0, 1)+ ". " + this.lastName;
+      if (tmp.length()>MAX_DISPLAY_LEN) {
+        tmp = this.firstName.substring(0, 1)+ ". " + this.lastName.substring(0,18);
+      }
+      return tmp;
+    }
+    return this.firstName + ". " + this.lastName;
+  }
+	
+	 
+
+  public String toString() {
 		StringBuilder string = new StringBuilder();
 		string.append(getFirstName()).append(" ");
 		string.append(getLastName()).append(", ");

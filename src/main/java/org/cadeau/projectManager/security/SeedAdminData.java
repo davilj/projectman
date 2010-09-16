@@ -25,13 +25,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class SeedAdminData {
 	
-	@Autowired private PersonService personService;
-	@Autowired private AuthorityService authorityService;
+	//@Autowired 
+	private PersonService personService;
+	//@Autowired 
+	private AuthorityService authorityService;
 	
-	@Value("#{adminUser}") private Person admin;
-	@Value("#{adminAuthority}") private Authorities adminAuthorities;
+	//@Value("#{adminUser}") 
+	private Person admin;
+	//@Value("#{adminAuthority}") 
+	private Authorities adminAuthorities;
 
-	@PostConstruct
+	//@PostConstruct
 	private void seedAdmin() {
         // Set a dummy admin account that will create the actual admin
         Authentication authRequest = new UsernamePasswordAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
