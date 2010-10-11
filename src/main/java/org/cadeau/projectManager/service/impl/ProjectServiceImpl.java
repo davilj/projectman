@@ -29,8 +29,9 @@ public class ProjectServiceImpl extends GenericDAOWithJPA<Project, Long> impleme
   }
 
   public List<Project> findMyProjects(Person person) {
-    // TODO Auto-generated method stub
-    return null;
+    
+      return entityManager.createQuery("Select pr from " + Project.class.getSimpleName() + " pr join pr.owner pe where pe.id=" + person.getId()).getResultList();
+    
   }
 
   public void addComment(Project project,Comment comment) {

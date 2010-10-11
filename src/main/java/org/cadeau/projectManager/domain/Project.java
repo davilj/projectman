@@ -49,6 +49,9 @@ public class Project implements Serializable {
   //date project was deleted (made inactive)
   private Date deactivationDate;
   
+  //date project was created
+  private Date creationDate;
+  
   @OneToMany(cascade = CascadeType.ALL)
   private Set<Comment> comments = new HashSet<Comment>();
   
@@ -62,6 +65,15 @@ public class Project implements Serializable {
   
   
   
+  
+  public Date getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(Date creationDate) {
+    this.creationDate = creationDate;
+  }
+
   public Person getOwner() {
     return owner;
   }

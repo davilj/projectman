@@ -1,6 +1,7 @@
 package org.cadeau.projectManager.web.mvc;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.Set;
 
 import javax.validation.Validation;
@@ -92,7 +93,7 @@ public class ProjectController {
 	@RequestMapping(value = "/project", method = RequestMethod.POST)
   public String create(@ModelAttribute("project")  Project project, BindingResult result) {
     Assert.notNull(project, "Project can not be null.");
-    
+    project.setCreationDate(new Date());
     projectService.persist(project);
     return "redirect:/project/" + project.getId();
   }
